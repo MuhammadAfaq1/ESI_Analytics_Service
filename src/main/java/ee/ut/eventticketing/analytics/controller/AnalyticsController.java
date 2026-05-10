@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/analytics/events")
+@RequestMapping("/api/analytics/events")
 public class AnalyticsController {
 
     private final AnalyticsService analyticsService;

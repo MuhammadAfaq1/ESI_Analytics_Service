@@ -6,16 +6,12 @@ export default defineConfig({
   server: {
     port: 5174,
     proxy: {
-      '/analytics': {
+      '/api/checkin': {
+        target: 'http://localhost:8086',
+        changeOrigin: true,
+      },
+      '/api/analytics': {
         target: 'http://localhost:8087',
-        changeOrigin: true,
-      },
-      '/checkins': {
-        target: 'http://localhost:8086',
-        changeOrigin: true,
-      },
-      '/events': {
-        target: 'http://localhost:8086',
         changeOrigin: true,
       },
     },

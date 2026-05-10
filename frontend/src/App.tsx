@@ -32,24 +32,24 @@ export default function App() {
     setLoading(true);
     setError(null);
     try {
-      // Fetch Attendance from Gate
-      const attRes = await fetch(`/events/${eventId}/attendance`);
+      // Fetch Attendance from Gate via Gateway
+      const attRes = await fetch(`/api/checkin/events/${eventId}/attendance`);
       if (attRes.ok) {
         setAttendance(await attRes.json());
       } else {
         setAttendance(0);
       }
 
-      // Fetch Summary from Gate
-      const sumRes = await fetch(`/checkins/events/${eventId}/summary`);
+      // Fetch Summary from Gate via Gateway
+      const sumRes = await fetch(`/api/checkin/checkins/events/${eventId}/summary`);
       if (sumRes.ok) {
         setSummary(await sumRes.json());
       } else {
         setSummary({ eventId, totalCheckIns: 0, uniqueAttendees: 0 });
       }
 
-      // Fetch Report from Analytics
-      const repRes = await fetch(`/analytics/events/${eventId}`);
+      // Fetch Report from Analytics via Gateway
+      const repRes = await fetch(`/api/analytics/events/${eventId}`);
       if (repRes.ok) {
         setReport(await repRes.json());
       } else {
@@ -68,9 +68,8 @@ export default function App() {
     if (!eventId) return;
     setLoading(true);
     try {
-      // Direct call to Analytics Service Sync endpoint.
-      // The Analytics Service will then call the Check-In Service on its own.
-      const syncRes = await fetch(`/analytics/events/${eventId}/sync`, {
+      // Direct call to Analytics Service Sync endpoint via Gateway.
+      const syncRes = await fetch(`/api/analytics/events/${eventId}/sync`, {
         method: 'POST'
       });
       

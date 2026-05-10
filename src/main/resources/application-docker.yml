@@ -17,3 +17,7 @@ spring:
 
 server:
   port: 8087
+
+services:
+  checkin:
+    url: http://attendee-checkin-service:8086
