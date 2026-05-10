@@ -1,0 +1,10 @@
+target/
+data/
+node_modules/
+dist/
+*.mv.db
+*.trace.db
+.DS_Store
+.idea/
+.vscode/
+*.log
