@@ -21,3 +21,6 @@ spring:
       hibernate:
         format_sql: true
 
+jwt:
+  issuer: ${JWT_ISSUER:event-ticketing-gateway}
+  secret: ${JWT_SECRET:event-ticketing-development-secret-32}

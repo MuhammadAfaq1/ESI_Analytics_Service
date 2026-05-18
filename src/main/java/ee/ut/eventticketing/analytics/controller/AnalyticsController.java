@@ -4,6 +4,7 @@ import ee.ut.eventticketing.analytics.dto.EventReportResponse;
 import ee.ut.eventticketing.analytics.service.AnalyticsService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,18 +33,21 @@ public class AnalyticsController {
     }
 
     @PostMapping("/{eventId}/attendance")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update event attendance (Manual)", description = "Updates the event report attendance with provided value")
     public EventReportResponse updateEventAttendance(@PathVariable UUID eventId, @RequestBody Long attendanceCount) {
         return analyticsService.updateEventAttendance(eventId, attendanceCount);
     }
 
     @PostMapping("/{eventId}/sync")
+    @PreAuthorize("hasAnyRole('USER', 'CUSTOMER', 'ADMIN')")
     @Operation(summary = "Sync with Gate (Integrated)", description = "Analytics Service calls Check-In Service directly to sync data")
     public EventReportResponse syncWithGate(@PathVariable UUID eventId) {
         return analyticsService.syncWithGate(eventId);
     }
 
     @DeleteMapping("/{eventId}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete event report", description = "Deletes the report for a specific event")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReport(@PathVariable UUID eventId) {
